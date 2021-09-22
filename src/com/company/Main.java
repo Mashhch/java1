@@ -4,7 +4,18 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        MyList NewMyList = new MyList(1);
+
+        MyTree NewMyTree = new MyTree(5);
+        System.out.println(NewMyTree.Size());
+
+        //NewMyTree.addChild();
+
+
+
+
+
+
+      /*  MyList NewMyList = new MyList(1);
         System.out.println(NewMyList.indexOf(1));
         System.out.println(NewMyList.isEmpty());
         System.out.println(NewMyList.Size());
@@ -70,7 +81,7 @@ public class Main {
         System.out.println(newMap.remove(2));
         System.out.println(newMap.remove(3));
         System.out.println(newMap.isEmpty());
-
+*/
     }
 
 

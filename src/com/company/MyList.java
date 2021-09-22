@@ -1,7 +1,7 @@
 package com.company;
 
 class MyList {
-    int size = 0;
+    private int size = 0;
     MyList.Record head = null;
 
     class Record {
