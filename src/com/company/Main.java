@@ -5,12 +5,88 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
 
-        MyTree NewMyTree = new MyTree(5);
-        System.out.println(NewMyTree.Size());
-
-        //NewMyTree.addChild();
 
 
+//        MyTree NewMyTree = new MyTree(100);
+//        System.out.println(NewMyTree.Size());
+//        MyNode node = new MyNode(10);
+//        MyNode node2 = new MyNode(20);
+//        MyNode node3 = new MyNode(30);
+//        MyNode node4 = new MyNode(40);
+//        MyNode node5 = new MyNode(50);
+//        node.setParent(NewMyTree.getRoot());
+//        NewMyTree.addNode(node);
+//        System.out.println(NewMyTree.Size());
+//        node2.setParent(NewMyTree.getRoot());
+//        NewMyTree.addNode(node2);
+//        System.out.println(NewMyTree.Size());
+//        node3.setParent(NewMyTree.getRoot().getDown());
+//        NewMyTree.addNode(node3);
+//        System.out.println(NewMyTree.Size());
+//        node4.setParent(NewMyTree.getRoot().getDown());
+//        NewMyTree.addNode(node4);
+//        System.out.println(NewMyTree.Size());
+//        node5.setParent(NewMyTree.getRoot().getDown().getDown().getRight());
+//        //node5.setParent(NewMyTree.getRoot().getDown().getRight());
+//        NewMyTree.addNode(node5);
+//        System.out.println(NewMyTree.Size());
+//        System.out.println("vvv");
+////        System.out.println(NewMyTree.getRoot().getDown().getRight().getRight().getValue());
+//        System.out.println(NewMyTree.getNode(0).getValue());
+//        System.out.println("A");
+//        System.out.println(NewMyTree.getNode(1).getValue());
+//        System.out.println("A");
+//        System.out.println(NewMyTree.getNode(2).getValue());
+//        System.out.println("A");
+//        System.out.println(NewMyTree.getNode(3).getValue());
+//        System.out.println("A");
+//        System.out.println(NewMyTree.getNode(4).getValue());
+//        System.out.println(NewMyTree.getNode(5).getValue());
+//        System.out.println("start");
+//        System.out.println(NewMyTree.getRoot().getValue());
+//        System.out.println(NewMyTree.getRoot().getDown().getValue());
+//        System.out.println(NewMyTree.getRoot().getDown().getRight().getValue());
+//        System.out.println(NewMyTree.getRoot().getDown().getDown().getValue());
+//        System.out.println(NewMyTree.getRoot().getDown().getDown().getRight().getValue());
+//        System.out.println(NewMyTree.getRoot().getDown().getDown().getRight().getDown().getValue());
+//        System.out.println(NewMyTree.getRoot().getValue());
+//        System.out.println(NewMyTree.getRoot().getDown().getIndex());
+//        System.out.println(NewMyTree.getRoot().getDown().getRight().getIndex());
+//        System.out.println(NewMyTree.getRoot().getDown().getDown().getIndex());
+//        System.out.println(NewMyTree.getRoot().getDown().getDown().getRight().getIndex());
+//        System.out.println(NewMyTree.getRoot().getDown().getDown().getRight().getDown().getIndex());
+//        System.out.println("end");
+//        NewMyTree.removeNode(0);
+//        System.out.println(NewMyTree.getRoot().getValue());
+//        System.out.println(NewMyTree.Size());
+//        //NewMyTree.removeChild(1);
+//        //System.out.println(NewMyTree.getRoot().getDown().getValue());
+//        //NewMyTree.removeChild(4);
+//        NewMyTree.removeNode(NewMyTree.getRoot());
+//        NewMyTree.removeNode(NewMyTree.getRoot().getDown());
+//        //NewMyTree.removeChild(2);
+//        System.out.println(NewMyTree.Size());
+////        System.out.println("vvv");
+////        System.out.println(NewMyTree.getRoot().getDown().getRight().getRight().getValue());
+////        System.out.println(NewMyTree.getChild(0).getValue());
+////        System.out.println("A");
+////        System.out.println(NewMyTree.getChild(1).getValue());
+////        System.out.println("A");
+////        System.out.println(NewMyTree.getChild(2).getValue());
+////        System.out.println("A");
+////        System.out.println(NewMyTree.getChild(3).getValue());
+////        System.out.println(NewMyTree.Size());
+////        System.out.println(NewMyTree.getChild(4).getValue());
+//        System.out.println("vvv");
+//        //NewMyTree.removeChild(3);
+//        System.out.println(NewMyTree.Size());
+//        System.out.println(NewMyTree.getNode(1).getValue());
+//        System.out.println(NewMyTree.getRoot().getValue());
+//        System.out.println(NewMyTree.getRoot().getDown() == null);
+//        System.out.println(NewMyTree.getRoot().getDown().getRight() == null);
+//        NewMyTree.deleteTree();
+//        System.out.println(NewMyTree.isEmpty());
+//
 
 
 

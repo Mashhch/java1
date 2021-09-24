@@ -6,19 +6,17 @@ package com.company;
 public class MyTree {
 
 
-    // int[] Arraylvl = new int[1];
-    Node root = null;
+    MyNode root;
     private int size = 0;
 
     MyTree(Object root) {
-        this.root = new Node(root);
-        //this.Arraylvl[0]=1;
-        this.size++;
+        this.root = new MyNode(root);
+        ReIndex(0, this.root);
     }
 
-    MyTree(Node root) {
-        this.root = new Node(root);
-        this.size++;
+    MyTree(MyNode root) {
+        this.root = new MyNode(root);
+        ReIndex(0, this.root);
     }
 
     public int Size() {
@@ -26,34 +24,27 @@ public class MyTree {
     }
 
     public boolean isEmpty() {
-        return this.size == 0;
+        return this.root == null;
     }
 
-    public Node getRoot() {
+    public MyNode getRoot() {
         return root;
     }
 
-    public void ReIndex(int index, Node fromNode) {
+    private void ReIndex(int index, MyNode fromNode) {
         if (isEmpty()) return;
-        Node nowNode = new Node(fromNode);
-        Node downNode = new Node(fromNode);
-        Node rightNode = new Node(fromNode);
-        int indexNow = index;
-        //  for(int i =0; i<this.Size();i++){}
-        //while(nowNode != null){
-        nowNode.setIndex(indexNow);
-        indexNow++;
-        //while(nowNode != null) {
+        MyNode nowNode = new MyNode(fromNode);
+        fromNode.setIndex(index);
         if (nowNode.getRight() != null) {
-            rightNode = nowNode.getRight();
-            ReIndex(indexNow, rightNode);
+            index++;
+            this.size=index+1;
+            ReIndex(index, nowNode.getRight());
         }
         if (nowNode.getDown() != null) {
-            downNode = nowNode.getDown();
-            ReIndex(indexNow, downNode);
+            index++;
+            this.size=index+1;
+            ReIndex(index, nowNode.getDown());
         }
-        //  }
-        //  }
     }
 
     /*public void addNode1(int index, Node whereNode, Node fromNode) {
@@ -130,127 +121,113 @@ public class MyTree {
         return;
     }*/
 
-    public void addChild(Node value) {
+
+    public void addNode(MyNode value) {
         if (isEmpty()) {
             this.root.setNode(value);
             return;
         }
-        Node valueParent = value.getParent();
-        Node valueSister = valueParent.getDown();
-        while (valueSister.getRight() != null)
-            valueSister = valueSister.getRight();
-        valueSister.setRight(value);
-        value.setLeft(valueSister);
+        if (value.getParent() == null) return;
+        if(value.getParent().getDown() != null) {
+            MyNode valueSister = value.getParent().getDown();
+            while (valueSister.getRight() != null)
+                valueSister = valueSister.getRight();
+            valueSister.setRight(value);
+        }
+        else {
+            value.getParent().setDown(value);
+        }
         ReIndex(0, root);
-        this.size++;
     }
 
+//    private int removeNode1(int index, int nowIndex, int flag, MyNode fromNode) {
+//        if (index <= 0) {
+//            return 0;
+//        }
+//        MyNode nowNode = new MyNode(fromNode);
+//        MyNode rightNode = new MyNode(fromNode);
+//            if (nowNode.getRight() != null) {
+//                nowIndex++;
+//                flag = removeNode1(index, nowIndex, flag, nowNode.getRight());
+//                if (flag == 1) return 1;
+//            }
+//            if (nowNode.getDown() != null) {
+//                nowIndex++;
+//                flag = removeNode1(index, nowIndex, flag, nowNode.getDown());
+//                if (flag == 1) return 1;
+//        }
+//        if (index == fromNode.getIndex()) {
+//            if (fromNode.getParent().getDown() != fromNode) {
+//                MyNode Sister = fromNode.getParent().getDown();
+//                while(Sister.getRight() != fromNode)
+//                    Sister=Sister.getRight();
+//                Sister.setRight(fromNode.getRight());
+//                ReIndex(0, root);
+//                return 1;
+//            } else {
+//                if (fromNode.getRight() != null) {
+//                    fromNode.getParent().setDown(fromNode.getRight());
+//                } else {
+//                    fromNode.getParent().setDown(null);
+//                }
+//                ReIndex(0, root);
+//                return 1;
+//            }
+//        }
+//        return 0;
+//    }
 
-    public void removeNode1(int index, Node fromNode) {
-        if (index == 0) {
-            return;
-        }
-        Node nowNode = new Node(fromNode);
-        Node downNode = new Node(fromNode);
-        Node rightNode = new Node(fromNode);
-        while (index < fromNode.getIndex()) {
-            if (nowNode.getRight() != null) {
-                rightNode = nowNode.getRight();
-                index++;
-                removeNode1(index, rightNode);
-            }
-            if (nowNode.getDown() != null) {
-                downNode = nowNode.getDown();
-                index++;
-                removeNode1(index, downNode);
-            }
-        }
-        if (index == fromNode.getIndex()) {
-            if (nowNode.getLeft() != null) {
-                nowNode.getLeft().setRight(nowNode.getRight());
-                nowNode.getRight().setLeft(nowNode.getLeft());
-                nowNode = null;
-                ReIndex(0, root);
-                this.size--;
-                return;
-            } else {
-                if (nowNode.getRight() != null) {
-                    nowNode.getParent().setDown(nowNode.getRight());
-                    nowNode.getRight().setLeft(null);
-                } else {
-                    nowNode.getParent().setDown(null);
-                }
-                nowNode = null;
-                this.size--;
-                ReIndex(0, root);
-                return;
-            }
-        }
-       // if(index > this.Size()) return;
-        return;
-    }
-
-    public void removeChild(int index) {
+    public void removeNode(int index) {
         if (isEmpty()) {
             return;
         }
-        if(index > this.Size()) return;
-        if (index < 0 ) index = 0;
-        removeNode1(index, root);
+        if(index >= this.Size() || index <= 0) return;
+        MyNode remoteNode = getNode(index);
+        remoteNode.getParent().removeChild(remoteNode);
+
+       // removeNode1(index, 0, 0, root);
     }
 
 
-    public void removeChild(Node value) {
+    public void removeNode(MyNode value) {
         if (isEmpty()) {
             return;
         }
-        if (value.getIndex() <= 0) {
-            return;
-        }
-
-        if (value.getIndex() > this.Size()) {
-            return;
-        }
-        if (value.getLeft() != null) {
-            value.getLeft().setRight(value.getRight());
-            value.getRight().setLeft(value.getLeft());
-            value = null;
+        if (value.getParent() == null) return;
+        value.getParent().removeChild(value);
+//        if (value.getParent().getDown() != value) {
+//            MyNode Sister = value.getParent().getDown();
+//            while(Sister.getRight() != value)
+//                Sister=Sister.getRight();
+//            Sister.setRight(value.getRight());
+//            ReIndex(0, root);
+//            return;
+//        } else {
+//            if (value.getRight() != null) {
+//                value.getParent().setDown(value.getRight());
+//            } else {
+//                value.getParent().setDown(null);
+//            }
+//       }
             ReIndex(0, root);
-            this.size--;
-            return;
-        } else {
-            if (value.getRight() != null) {
-                value.getParent().setDown(value.getRight());
-                value.getRight().setLeft(null);
-            } else {
-                value.getParent().setDown(null);
-            }
-            value = null;
-            this.size--;
-            ReIndex(0, root);
-            return;
-        }
     }
 
-    public Node getNode(int index,Node fromNode){
-        Node nowNode = new Node(fromNode);
-        Node downNode;
-        Node rightNode;
-        while (index < fromNode.getIndex()) {
+    private MyNode getNode1(int index, int nowIndex, MyNode fromNode){
+        if (fromNode.getIndex() == index)
+            return fromNode;
+        MyNode nowNode = new MyNode(fromNode);
             if (nowNode.getRight() != null) {
-                rightNode = nowNode.getRight();
-                index++;
-                fromNode = getNode(index, rightNode);
+                nowIndex++;
+
+                fromNode = getNode1(index, nowIndex, nowNode.getRight());
                 if (fromNode.getIndex() == index)
                     return fromNode;
             }
             if (nowNode.getDown() != null) {
-                downNode = nowNode.getDown();
-                index++;
-                fromNode = getNode(index, downNode);
+                nowIndex++;
+                fromNode = getNode1(index, nowIndex, nowNode.getDown());
                 if (fromNode.getIndex() == index)
                     return fromNode;
-            }
         }
         if(index==0){
             return root;
@@ -258,52 +235,100 @@ public class MyTree {
         return fromNode;
     }
 
-    public Node getChild(int index) {
+    public MyNode getNode(int index) {
         if (isEmpty()) {
             return null;
         }
-        if (index < 0) index = 0;
-        return getNode(index, root);
+        if (index < 0 || index >=this.Size()) return null;
+
+        return getNode1(index, 0, root);
     }
 
-    public Node find1(int index, Node fromNode, Object value){
-        Node nowNode = new Node(fromNode);
-        Node downNode;
-        Node rightNode;
+    private MyNode findNode1(int index, MyNode fromNode, Object value){
+        MyNode nowNode = new MyNode(fromNode);
+        MyNode downNode;
+        MyNode rightNode;
         while (value != fromNode.getValue()) {
             if (nowNode.getRight() != null) {
                 rightNode = nowNode.getRight();
                 index++;
-                fromNode = find1(index, rightNode, value);
-                if (fromNode.getValue() == value)
-                    return fromNode;
+                fromNode = findNode1(index, rightNode, value);
+                if(fromNode != null) {
+                    if (fromNode.getValue() == value)
+                        return fromNode;
+                }
             }
             if (nowNode.getDown() != null) {
                 downNode = nowNode.getDown();
                 index++;
-                fromNode = find1(index, downNode, value);
-                if (fromNode.getValue() == value)
-                    return fromNode;
+                fromNode = findNode1(index, downNode, value);
+                if (fromNode != null) {
+                    if (fromNode.getValue() == value)
+                        return fromNode;
+                }
             }
         }
         return null;
     }
 
-    public Node find(Object value){
+    public MyNode find(Object value){
         if (isEmpty()) {
             return null;
         }
-        return find1(0, root, value);
+        return findNode1(0, root, value);
     }
 
-    public Node getParent(int index){
+    public MyNode getParent(int index){
         if (index<=0 || index>= this.Size()) return null;
-        Node findNode = getNode(index, root);
+        MyNode findNode = getNode(index);
         return findNode.getParent();
     }
 
+    public MyTree subTree(MyNode value){
+        MyNode newRoot = new MyNode(value);
+        newRoot.setParent(null);
+        newRoot.setRight(null);
+        return new MyTree(newRoot);
+    }
 
+    public MyList toList(){
+        if(this.isEmpty()) return null;
+        MyList newList = new MyList(root);
+        for(int i =1;i<this.Size();i++){
+            newList.add(this.getNode(i));
+        }
+        return newList;
+    }
+
+    public void deleteTree(){
+        this.root =null;
+    }
 }
+
+
+//    public MyList toList(MyNode child){
+//        if(this.isEmpty()) return null;
+//        if (child.getParent() == null) return null;
+//        if (child.getParent().getDown() == null) return null;
+//        MyNode nowNode = child.getParent().getDown();
+//        while(nowNode != child && nowNode != null){
+//            nowNode = nowNode.getRight();
+//        }
+//        if (nowNode == null) {
+//            return null;
+//        }
+//        else {
+//            MyList childParent = new MyList(child.getParent());
+//            nowNode = child.getParent().getDown();
+//            while (nowNode != child) {
+//                childParent.add(nowNode);
+//                nowNode = nowNode.getRight();
+//            }
+//            return childParent;
+//        }
+//    }
+
+
       /*  private class Node{
             int index = 0;
             Node parent = null;
